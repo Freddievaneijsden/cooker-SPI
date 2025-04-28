@@ -8,6 +8,6 @@ public class ThaiCooking implements Cooker {
 
     @Override
     public void cook() {
-        System.out.println("Cooking a delicious meal of Panang");
+        System.out.println("Cooking a delicious meal of Panang!");
     }
 }

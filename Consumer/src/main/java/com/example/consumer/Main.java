@@ -1,7 +1,9 @@
 package com.example.consumer;
 
 import com.example.cooker.Cooker;
-
+import com.example.cooker.Cuisine;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.ServiceLoader;
 
@@ -15,40 +17,24 @@ public class Main {
                 .map(ServiceLoader.Provider::get)
                 .toList();
 
-//        for (Cooker dish : serviceLoader) {
-//            var annotation = dish.getClass().getAnnotation(Cuisine.class);
-//            if (annotation == null)
-//                System.out.println("No annotation of type Cuisine found");
-//            else
-//                System.out.println("Annotation Cuisine with value: " + annotation.value());
-//        }
-
-        System.out.println("What cuisine would you like to cook from?");
-        System.out.println("1: Swedish");
-        System.out.println("2: Dutch");
-        System.out.println("3: Thai");
+        System.out.println("What cuisine would you like to cook from? Pick a number 1-3!");
+        int i = 1;
+        Map<Integer, Cooker> options = new HashMap<>();
+        for (Cooker dish : dishes) {
+            Cuisine cuisine = dish.getClass().getAnnotation(Cuisine.class);
+            if (cuisine != null) {
+                System.out.println(i + ": " + cuisine.value());
+                options.put(i++, dish);
+            }
+        }
         Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().toLowerCase();
-        if (input.equals("1") || input.equals("swedish")) {
-            for (Cooker dish : dishes) {
-                if (dish.getClass().getSimpleName().startsWith("Swedish")) {
-                    dish.cook();
-                }
-            }
-        }
-        if (input.equals("2") || input.equals("dutch")) {
-            for (Cooker dish : dishes) {
-                if (dish.getClass().getSimpleName().startsWith("Dutch")) {
-                    dish.cook();
-                }
-            }
-        }
-        if (input.equals("3") || input.equals("thai")) {
-            for (Cooker dish : dishes) {
-                if (dish.getClass().getSimpleName().startsWith("Thai")) {
-                    dish.cook();
-                }
-            }
+        int input = scanner.nextInt();
+
+        Cooker selectedDish = options.get(input);
+        if (selectedDish != null) {
+            selectedDish.cook();
+        } else {
+            System.out.println("Please pick a valid number from the menu.");
         }
     }
 }

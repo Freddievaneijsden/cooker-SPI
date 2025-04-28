@@ -8,6 +8,6 @@ public class SwedishCooking implements Cooker {
 
     @Override
     public void cook() {
-        System.out.println("Cooking a delicious meal of Meatballs");
+        System.out.println("Cooking a delicious meal of Meatballs!");
     }
 }
