@@ -27,14 +27,21 @@ public class Main {
                 options.put(i++, dish);
             }
         }
-        Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
 
-        Cooker selectedDish = options.get(input);
-        if (selectedDish != null) {
-            selectedDish.cook();
-        } else {
-            System.out.println("Please pick a valid number from the menu.");
+        Scanner scanner = new Scanner(System.in);
+        try {
+            int input = scanner.nextInt();
+
+            Cooker selectedDish = options.get(input);
+            if (selectedDish != null) {
+                selectedDish.cook();
+            } else {
+                System.out.println("Please pick a valid number from the menu.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid input! Please enter a number between 1 and 3.");
+        } finally {
+            scanner.close();
         }
     }
 }
