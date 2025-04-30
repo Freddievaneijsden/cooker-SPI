@@ -12,4 +12,4 @@ COPY Provider/target/Provider-1.0-SNAPSHOT.jar provider.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java", "--module-path", "consumer.jar:interface.jar:provider.jar", "-m", "com.example.consumer/com.example.consumer.Main"]
